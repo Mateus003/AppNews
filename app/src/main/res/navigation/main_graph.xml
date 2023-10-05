@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/home">
+
+    <fragment
+        android:id="@+id/home"
+        android:name="com.example.appnews.view.fragment.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_home_to_articleFragment"
+            app:destination="@id/articleFragment" />
+        <action
+            android:id="@+id/action_home_to_errorFragment"
+            app:destination="@id/errorFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/articleFragment"
+        android:name="com.example.appnews.view.fragment.ArticleFragment"
+        android:label="fragment_article"
+        tools:layout="@layout/fragment_article" >
+        <argument
+            android:name="article"
+            app:argType="com.example.appnews.model.Article"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_articleFragment_to_home"
+            app:destination="@id/home" />
+        <action
+            android:id="@+id/action_articleFragment_to_explore"
+            app:destination="@id/explore" />
+    </fragment>
+    <fragment
+        android:id="@+id/favorite"
+        android:name="com.example.appnews.view.fragment.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_favorite_to_articleFavoriteFragment"
+            app:destination="@id/articleFavoriteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/errorFragment"
+        android:name="com.example.appnews.view.fragment.ErrorFragment"
+        android:label="fragment_error"
+        tools:layout="@layout/fragment_error" >
+        <action
+            android:id="@+id/action_errorFragment_to_home"
+            app:destination="@id/home" />
+        <argument
+            android:name="error"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/articleFavoriteFragment"
+        android:name="com.example.appnews.view.fragment.ArticleFavoriteFragment"
+        android:label="fragment_article_favorite"
+        tools:layout="@layout/fragment_article_favorite" >
+        <argument
+            android:name="favorite_article"
+            app:argType="com.example.appnews.model.Article" />
+        <action
+            android:id="@+id/action_articleFavoriteFragment_to_favorite"
+            app:destination="@id/favorite" />
+    </fragment>
+    <fragment
+        android:id="@+id/explore"
+        android:name="com.example.appnews.view.fragment.ExploreFragment"
+        android:label="fragment_explore"
+        tools:layout="@layout/fragment_explore" >
+        <action
+            android:id="@+id/action_explore_to_articleFragment"
+            app:destination="@id/articleFragment" />
+    </fragment>
+
+
+</navigation>

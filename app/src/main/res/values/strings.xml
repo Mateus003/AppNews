@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">AppNews</string>
+    <string name="description">Descrição</string>
+    <string name="title">Titulo</string>
+
+    <string name="favorite">Favoritos</string>
+    <string name="news">Notícias</string>
+    <string name="explore">Explorar</string>
+
+    <string name="article_saved_successful">Artigo salvo com sucesso!</string>
+    <string name="article_delete_successful">Artigo deletado com sucesso</string>
+    <string name="undo">desfazer</string>
+    <string name="verify_connection">Verifique se se celular está conectado à internet e atualize para tentar novamente</string>
+    <string name="update">Atualizar</string>
+    <string name="no_internet">Ops, sem conexão com a internet:(</string>
+
+    <string name="result_search"> Resultado da pesquisa: %1$s</string>
+
+
+    <string name="txtNotSaveArticle">Nenhuma nóticia salva</string>
+
+
+
+    <string name="breaking_news">Últimas notícias</string>
+
+    <string name="share_link">Compartilhar nóticia</string>
+
+    <!-- Categorias -->
+    <string name="world">Mundo</string>
+    <string name="sports">Esportes</string>
+    <string name="environment">Meio Ambiente</string>
+    <string name="technology">Tecnologia</string>
+    <string name="business">Negócios</string>
+    <string name="politcs">Política</string>
+    <string name="science">Ciência</string>
+    <string name="health">Saúde</string>
+    <string name="food">Culinária</string>
+    <string name="entertaiment">Entretenimento</string>
+    <string name="saved_news">Notícias salvas</string>
+
+
+</resources>
