@@ -7,23 +7,26 @@
     <string name="news">Notícias</string>
     <string name="explore">Explorar</string>
 
-    <string name="article_saved_successful">Artigo salvo com sucesso!</string>
+    <string name="article_saved_successful">Notícia salvo com sucesso!</string>
     <string name="article_delete_successful">Artigo deletado com sucesso</string>
     <string name="undo">desfazer</string>
-    <string name="verify_connection">Verifique se se celular está conectado à internet e atualize para tentar novamente</string>
     <string name="update">Atualizar</string>
     <string name="no_internet">Ops, sem conexão com a internet:(</string>
 
     <string name="result_search"> Resultado da pesquisa: %1$s</string>
 
+    <string name="urlArticleOff">"O link do artigo está indisponível",</string>
 
-    <string name="txtNotSaveArticle">Nenhuma nóticia salva</string>
+    <string name="txtNotSaveArticle">Nenhuma notícia salva</string>
+
+
+    <string name="notArticleFound">Nenhuma notícia foi encontrada</string>
 
 
 
     <string name="breaking_news">Últimas Notícias</string>
 
-    <string name="share_link">Compartilhar nóticia</string>
+    <string name="share_link">Compartilhar notícia</string>
 
     <!-- Categorias -->
     <string name="world">Mundo</string>
