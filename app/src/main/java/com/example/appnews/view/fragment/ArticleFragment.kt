@@ -23,6 +23,7 @@ import com.example.appnews.presenter.ViewHome
 import com.example.appnews.presenter.favorite.FavoritePresenter
 import com.example.appnews.util.Constants
 import com.example.appnews.util.initToolbar
+import com.example.appnews.util.onBackPressed
 import com.google.android.material.snackbar.Snackbar
 
 class ArticleFragment : Fragment(), ViewHome.Favorite {
@@ -58,18 +59,24 @@ class ArticleFragment : Fragment(), ViewHome.Favorite {
 
         showWebView()
 
-        onBackPressed()
 
-         val getStringTitle = arguments?.getString(Constants.TITLE)
+        val getStringTitle = arguments?.getString(Constants.TITLE)
+
+        onBackPressed(this){
+          if (getStringTitle == "Nóticias"){
+              findNavController().navigate(R.id.action_articleFragment_to_home)
+          }else{
+              findNavController().navigate(R.id.action_articleFragment_to_explore)
+
+          }
+      }
+
 
         initToolbar(binding.toolbar,getStringTitle!!)
 
         presenter = FavoritePresenter(this,dataSource)
 
         sharedLinkUrl()
-
-
-
 
     }
 
@@ -89,23 +96,6 @@ class ArticleFragment : Fragment(), ViewHome.Favorite {
         super.onDestroy()
         _binding = null
 
-    }
-
-    private fun onBackPressed() {
-        val getStringTitle = arguments?.getString(Constants.TITLE)
-
-        val callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                if (getStringTitle == "Nóticias"){
-                    findNavController().navigate(R.id.action_articleFragment_to_home)
-                }else{
-                    findNavController().navigate(R.id.action_articleFragment_to_explore)
-
-                }
-            }
-
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(callback)
     }
 
     private fun showWebView() {
@@ -136,13 +126,8 @@ class ArticleFragment : Fragment(), ViewHome.Favorite {
                     Snackbar.make(it, "Nóticia removida", Snackbar.LENGTH_LONG).show()
                     presenter.deleteArticle(article)
 
-
                 }
-
-
         }
-
-
     }
 
 
@@ -163,7 +148,5 @@ class ArticleFragment : Fragment(), ViewHome.Favorite {
                 startActivity(chooser)
             }
         }
-
-
     }
 }

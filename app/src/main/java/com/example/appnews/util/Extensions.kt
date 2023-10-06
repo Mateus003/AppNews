@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
@@ -86,6 +87,17 @@ fun btnBackSearch(btnBackImage:ImageView, searchView: SearchView){
 
     }
 
+}
+
+fun onBackPressed(fragment: Fragment, configBackPressed: ()-> Unit){
+    val callback = object : OnBackPressedCallback(true){
+        override fun handleOnBackPressed() {
+            configBackPressed()
+
+        }
+
+    }
+    fragment.requireActivity().onBackPressedDispatcher.addCallback(callback)
 }
 /*
  btnBack.setOnClickListener {

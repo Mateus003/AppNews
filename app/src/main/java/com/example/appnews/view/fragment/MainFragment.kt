@@ -20,6 +20,7 @@ import com.example.appnews.presenter.news.NewsPresenter
 import com.example.appnews.util.btnBackSearch
 import com.example.appnews.util.btnBackTextSubmitList
 import com.example.appnews.util.buttonCloseSearch
+import com.example.appnews.util.onBackPressed
 import com.example.appnews.view.adapter.MainAdapter
 
 
@@ -58,7 +59,7 @@ class MainFragment : Fragment(), ViewHome.View {
 
         configRecyclerView()
         searchNews()
-        onBackPressed()
+        onBackPressed(this@MainFragment) { configBackPressed() }
 
 
         val title = binding.txtTitle.text.toString()
@@ -89,8 +90,6 @@ class MainFragment : Fragment(), ViewHome.View {
     }
 
     override fun showArticle(articles: List<Article>) {
-
-
         mainAdapter.differ.submitList(articles.toList())
     }
 
@@ -109,10 +108,8 @@ class MainFragment : Fragment(), ViewHome.View {
     private fun searchNews() {
         textNotFound = binding.txtNotFound
 
-
         val searchView = binding.searchNews
         val btnBack = binding.imgBtnBack
-
 
 
         searchView.setOnSearchClickListener {
@@ -121,10 +118,7 @@ class MainFragment : Fragment(), ViewHome.View {
 
         btnBackSearch(btnBack, searchView)
 
-
         val buttonClose: View?  = searchView?.findViewById(androidx.appcompat.R.id.search_close_btn)
-
-
 
         buttonCloseSearch(buttonClose, searchView, binding.imgBtnBack, false)
 
@@ -145,7 +139,7 @@ class MainFragment : Fragment(), ViewHome.View {
                     showProgressBar()
 
 
-                    onBackPressed()
+                    onBackPressed(this@MainFragment) { configBackPressed() }
 
                     buttonCloseSearch(buttonClose, searchView, binding.imgBtnBack, true)
 
@@ -161,28 +155,17 @@ class MainFragment : Fragment(), ViewHome.View {
 
         })
 
-
-    }
-
-
-
-    private fun onBackPressed(){
-        val callback = object :OnBackPressedCallback(true){
-            override fun handleOnBackPressed() {
-                    mainPresenter.requestAll()
-                    binding.titleListNews.text = getString(R.string.breaking_news)
-                textNotFound.isVisible= false
-
-
-            }
-
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(callback)
     }
 
     fun presenterRequestAll(){
         mainPresenter.requestAll()
         binding.titleListNews.text = getString(R.string.breaking_news)
+    }
+
+    fun configBackPressed(){
+        mainPresenter.requestAll()
+        binding.titleListNews.text = getString(R.string.breaking_news)
+        textNotFound.isVisible= false
     }
 
 }

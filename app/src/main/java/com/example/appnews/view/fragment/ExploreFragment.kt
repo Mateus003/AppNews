@@ -14,6 +14,7 @@ import com.example.appnews.R
 import com.example.appnews.databinding.FragmentExploreBinding
 import com.example.appnews.model.Article
 import com.example.appnews.model.Category
+import com.example.appnews.model.CategoryList
 import com.example.appnews.model.data.ExploreDataSource
 import com.example.appnews.presenter.ViewHome
 import com.example.appnews.presenter.explore.ExplorePresenter
@@ -21,6 +22,7 @@ import com.example.appnews.util.articleCLick
 import com.example.appnews.util.btnBackSearch
 import com.example.appnews.util.btnBackTextSubmitList
 import com.example.appnews.util.buttonCloseSearch
+import com.example.appnews.util.onBackPressed
 import com.example.appnews.view.adapter.CategoryAdapter
 import com.example.appnews.view.adapter.MainAdapter
 import com.xwray.groupie.GroupieAdapter
@@ -33,7 +35,6 @@ class ExploreFragment : Fragment(), ViewHome.View {
 
     private lateinit var presenter: ExplorePresenter
 
-
     private val adapter by lazy {
         GroupieAdapter()
     }
@@ -43,8 +44,6 @@ class ExploreFragment : Fragment(), ViewHome.View {
     }
 
     private lateinit var textCategory: TextView
-
-
 
     private lateinit var textNotFound: TextView
 
@@ -92,8 +91,6 @@ class ExploreFragment : Fragment(), ViewHome.View {
                 DividerItemDecoration(requireContext(),
                     DividerItemDecoration.VERTICAL)
             )
-
-
         }
     }
 
@@ -116,19 +113,7 @@ class ExploreFragment : Fragment(), ViewHome.View {
     }
 
     private fun addCategoryRecyclerView() {
-        val categoryList = listOf(
-            Category(getString(R.string.world), "World",R.drawable.world ),
-            Category(getString(R.string.sports), "Sports", R.drawable.sports),
-            Category(getString(R.string.environment), "Environment", R.drawable.environment),
-            Category(getString(R.string.technology), "Technology", R.drawable.technology),
-            Category(getString(R.string.business), "Business", R.drawable.business),
-            Category(getString(R.string.entertaiment), "Entertainment", R.drawable.entertaiment),
-            Category(getString(R.string.politcs), "Politics", R.drawable.politics),
-            Category(getString(R.string.science), "Science", R.drawable.science),
-            Category(getString(R.string.health), "Health", R.drawable.health),
-            Category(getString(R.string.food), "Food", R.drawable.food),
-            )
-
+        val categoryList = CategoryList(this).list
 
         categoryList.forEach { category ->
             val categoryAdapter = CategoryAdapter(category)
@@ -137,7 +122,6 @@ class ExploreFragment : Fragment(), ViewHome.View {
         }
 
     }
-
 
     override fun onDestroy() {
         super.onDestroy()
@@ -154,7 +138,6 @@ class ExploreFragment : Fragment(), ViewHome.View {
 
     override fun hideProgressBar() {
         binding.progressMain.isVisible = false
-
     }
 
     override fun showArticle(articles: List<Article>) {
@@ -164,7 +147,7 @@ class ExploreFragment : Fragment(), ViewHome.View {
 
     private fun searchNews() {
 
-       textNotFound = binding.txtNotFound
+        textNotFound = binding.txtNotFound
         val searchView = binding.searchNews
         val btnBack = binding.imgBtnBack
 
@@ -177,7 +160,6 @@ class ExploreFragment : Fragment(), ViewHome.View {
         val buttonClose: View?  = searchView?.findViewById(androidx.appcompat.R.id.search_close_btn)
         buttonCloseSearch(buttonClose, searchView, binding.imgBtnBack, false)
 
-
         searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (!query.isNullOrEmpty()) {
@@ -185,7 +167,7 @@ class ExploreFragment : Fragment(), ViewHome.View {
                     binding.rvCategory.isVisible = false
                     binding.titleListNews.text = getString(R.string.result_search, query)
 
-                    onBackPressedCategoryAndSearch()
+                  onBackPressed(this@ExploreFragment){configBackPressed()}
 
 
                     buttonCloseSearch(buttonClose, searchView, binding.imgBtnBack, true)
@@ -203,20 +185,11 @@ class ExploreFragment : Fragment(), ViewHome.View {
         })
     }
 
-
-
-    private fun onBackPressedCategoryAndSearch(){
-        val callback = object : OnBackPressedCallback(true){
-            override fun handleOnBackPressed() {
-                presenter.category("world", textCategory, "Mundo")
-                binding.rvCategory.isVisible = true
-                textNotFound.isVisible= false
-            }
-
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(callback)
+    fun configBackPressed(){
+        presenter.category("world", textCategory, "Mundo")
+        binding.rvCategory.isVisible = true
+        textNotFound.isVisible= false
     }
-
     fun presenterCategoryWorld(){
         presenter.category("world", textCategory, "Mundo")
         binding.rvCategory.isVisible = true
