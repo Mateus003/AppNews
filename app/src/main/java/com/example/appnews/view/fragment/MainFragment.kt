@@ -84,7 +84,6 @@ class MainFragment : Fragment(), ViewHome.View {
     }
 
 
-
     override fun hideProgressBar() {
         binding.progressMain.isVisible = false
     }
@@ -146,9 +145,6 @@ class MainFragment : Fragment(), ViewHome.View {
 
                     btnBackTextSubmitList(btnBack, searchView, binding.txtNotFound)
                     { presenterRequestAll() }
-
-
-
                 } ; return true
             }
 
