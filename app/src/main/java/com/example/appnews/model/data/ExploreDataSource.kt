@@ -32,14 +32,14 @@ class ExploreDataSource {
 
             }
             catch (e: IOException){
-                callback.onError("No internet connection")
+                callback.onError("Sem conexão com a internet:(")
                 callback.onComplete()
             }
         }
     }
 
 
-    fun getCategoryArticle(callback: ExplorePresenter, category:String="world"){
+    fun getCategoryArticle(callback: ExplorePresenter, category:String){
         GlobalScope.launch(Dispatchers.Main) {
             try {
                 val response = HTTPClient.api.categoriesNews(Constants.API_KEY, "br",category)
@@ -54,7 +54,7 @@ class ExploreDataSource {
                 callback.onComplete()
 
             }catch (e: IOException){
-                callback.onError("No internet connection")
+                callback.onError("Sem conexão com a internet:(")
                 callback.onComplete()
             }
         }

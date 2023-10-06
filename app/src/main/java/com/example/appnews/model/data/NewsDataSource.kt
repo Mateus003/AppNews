@@ -1,10 +1,12 @@
 package com.example.appnews.model.data
 
+import android.app.Presentation
 import android.content.Context
 import android.util.Log
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.lifecycle.LiveData
+import com.example.appnews.R
 import com.example.appnews.model.Article
 import com.example.appnews.model.local.db.ArticleDatabase
 import com.example.appnews.model.network.HTTPClient
@@ -41,11 +43,13 @@ class NewsDataSource(context: Context) {
                 callback.onComplete()
 
             } catch (e: IOException) {
-                callback.onError("No internet connection")
+                callback.onError("Sem conexão com a internet:(")
                 callback.onComplete()
 
             }
         }
+
+
     }
 
     fun getSearchBreakingNews(callback: NewsPresenter, term:String, textView: TextView){
@@ -67,36 +71,13 @@ class NewsDataSource(context: Context) {
 
            }
            catch (e: IOException){
-               callback.onError("No internet connection")
+               callback.onError("Sem conexão com a internet:(")
                callback.onComplete()
            }
         }
     }
 
 
-    fun getSearchBreakingNewsCategory(callback: ExplorePresenter, term:String, textView: TextView){
-        GlobalScope.launch(Dispatchers.Main){
-            try {
-                val response =  HTTPClient.api.searchNews(API_KEY, "br",term)
-                if (response.isSuccessful){
-                    response?.body()?.let {NewsResponse->
-                        callback.onSuccess(NewsResponse)
-                        textView.isVisible = NewsResponse.totalResults == 0
-
-                    }
-                    callback.onComplete()
-                }else {
-                    callback.onError(response.message())
-                    callback.onComplete()
-                }
-
-            }
-            catch (e: IOException){
-                callback.onError("No internet connection")
-                callback.onComplete()
-            }
-        }
-    }
 
 
     fun getCategoryArticle(callback: NewsPresenter, category:String){
@@ -114,7 +95,8 @@ class NewsDataSource(context: Context) {
                 callback.onComplete()
 
             }catch (e: IOException){
-                callback.onError("No internet connection")
+
+                callback.onError("Sem conexão com a internet:(")
                 callback.onComplete()
             }
         }
