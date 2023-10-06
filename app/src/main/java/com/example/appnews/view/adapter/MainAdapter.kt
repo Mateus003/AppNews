@@ -85,6 +85,7 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.ArticleViewHolder>() {
     }
 
      var originalList: List<Article>? = null
+
     fun setOriginalListInternal(list: List<Article>) {
         originalList = list
         differ.submitList(list)
