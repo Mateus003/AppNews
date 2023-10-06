@@ -8,7 +8,7 @@ import com.example.appnews.model.Article
 import com.example.appnews.model.local.dao.ArticleDAO
 
 
-@Database(entities = [Article::class], version = 1, exportSchema = false)
+@Database(entities = [Article::class], version = 2, exportSchema = false)
 abstract class ArticleDatabase: RoomDatabase() {
     abstract fun getArticleDao():ArticleDAO
 
@@ -23,7 +23,8 @@ abstract class ArticleDatabase: RoomDatabase() {
             }
         }
 
-        private fun createdDatabase(context: Context) = Room.databaseBuilder(context.applicationContext, ArticleDatabase::class.java, "article_db.db").build()
+        private fun createdDatabase(context: Context) = Room.databaseBuilder(context.applicationContext,
+            ArticleDatabase::class.java, "article_db.db").fallbackToDestructiveMigration().build()
 
     }
  }
