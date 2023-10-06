@@ -17,6 +17,8 @@ import com.example.appnews.model.Article
 import com.example.appnews.model.data.NewsDataSource
 import com.example.appnews.presenter.ViewHome
 import com.example.appnews.presenter.news.NewsPresenter
+import com.example.appnews.util.btnBackSearch
+import com.example.appnews.util.btnBackTextSubmitList
 import com.example.appnews.util.buttonCloseSearch
 import com.example.appnews.view.adapter.MainAdapter
 
@@ -105,12 +107,10 @@ class MainFragment : Fragment(), ViewHome.View {
 
 
     private fun searchNews() {
-
-
         textNotFound = binding.txtNotFound
 
-        val searchView = binding.searchNews
 
+        val searchView = binding.searchNews
         val btnBack = binding.imgBtnBack
 
 
@@ -119,14 +119,7 @@ class MainFragment : Fragment(), ViewHome.View {
             binding.imgBtnBack.isVisible = true
         }
 
-        btnBack.setOnClickListener {
-            btnBack.isVisible = false
-            searchView.onActionViewCollapsed()
-            searchView.setQuery("", false)
-            searchView.clearFocus()
-
-        }
-
+        btnBackSearch(btnBack, searchView)
 
 
         val buttonClose: View?  = searchView?.findViewById(androidx.appcompat.R.id.search_close_btn)
@@ -157,24 +150,8 @@ class MainFragment : Fragment(), ViewHome.View {
                     buttonCloseSearch(buttonClose, searchView, binding.imgBtnBack, true)
 
 
-                    btnBack.setOnClickListener {
-
-                        // Limpa o foco do SearchView para fechá-lo
-                        searchView.clearFocus()
-                        searchView.setQuery("", false)
-
-                        searchView.onActionViewCollapsed()
-
-
-
-
-                        btnBack.isVisible = false
-                        mainPresenter.requestAll()
-                        binding.titleListNews.text = "Últimas nóticias"
-
-                        textNotFound.isVisible= false
-
-                    }
+                    btnBackTextSubmitList(btnBack, searchView, binding.txtNotFound)
+                    { presenterRequestAll() }
 
 
 
@@ -201,6 +178,11 @@ class MainFragment : Fragment(), ViewHome.View {
 
         }
         requireActivity().onBackPressedDispatcher.addCallback(callback)
+    }
+
+    fun presenterRequestAll(){
+        mainPresenter.requestAll()
+        binding.titleListNews.text = getString(R.string.breaking_news)
     }
 
 }

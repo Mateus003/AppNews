@@ -24,6 +24,8 @@ import com.example.appnews.model.local.dao.ArticleDAO
 import com.example.appnews.presenter.ViewHome
 import com.example.appnews.presenter.favorite.FavoritePresenter
 import com.example.appnews.util.Constants.TITLE
+import com.example.appnews.util.btnBackSearch
+import com.example.appnews.util.btnBackTextSubmitList
 import com.example.appnews.util.buttonCloseSearch
 import com.example.appnews.view.adapter.MainAdapter
 import com.google.android.material.snackbar.Snackbar
@@ -56,9 +58,6 @@ class FavoriteFragment : Fragment(), ViewHome.Favorite {
         newsDataSource = NewsDataSource(requireContext())
 
         configRecyclerView()
-
-
-
 
 
         presenter = FavoritePresenter(this, newsDataSource)
@@ -97,12 +96,8 @@ class FavoriteFragment : Fragment(), ViewHome.Favorite {
 
                     }
 
-
-
                 }.show()
             }
-
-
 
         }
 
@@ -166,13 +161,7 @@ private fun searchFavoriteNews(){
         binding.imgBtnBack.isVisible = true
     }
 
-    btnBack.setOnClickListener {
-        btnBack.isVisible = false
-        searchView.onActionViewCollapsed()
-        searchView.setQuery("", false)
-        searchView.clearFocus()
-
-    }
+    btnBackSearch(btnBack, searchView)
 
     val buttonClose: View?  = searchView?.findViewById(androidx.appcompat.R.id.search_close_btn)
 
@@ -190,19 +179,9 @@ private fun searchFavoriteNews(){
 
                 buttonCloseSearch(buttonClose, searchView, binding.imgBtnBack, true)
 
+                btnBackTextSubmitList(btnBack, searchView, binding.txtNotSaveArticle)
+                { showArticle(mainAdapter.originalList!!) }
 
-                btnBack.setOnClickListener {
-                    btnBack.isVisible = false
-
-                    searchView.clearFocus()
-                    searchView.setQuery("", false)
-
-                    searchView.onActionViewCollapsed()
-                    btnBack.isVisible = false
-                    showArticle(mainAdapter.originalList!!)
-
-
-                }
 
                 btnBack.isVisible = true
 
@@ -211,7 +190,7 @@ private fun searchFavoriteNews(){
             return true
         }
     })
-}
 
+}
 
 }

@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
@@ -19,6 +18,8 @@ import com.example.appnews.model.data.ExploreDataSource
 import com.example.appnews.presenter.ViewHome
 import com.example.appnews.presenter.explore.ExplorePresenter
 import com.example.appnews.util.articleCLick
+import com.example.appnews.util.btnBackSearch
+import com.example.appnews.util.btnBackTextSubmitList
 import com.example.appnews.util.buttonCloseSearch
 import com.example.appnews.view.adapter.CategoryAdapter
 import com.example.appnews.view.adapter.MainAdapter
@@ -138,9 +139,6 @@ class ExploreFragment : Fragment(), ViewHome.View {
     }
 
 
-
-
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
@@ -165,6 +163,7 @@ class ExploreFragment : Fragment(), ViewHome.View {
 
 
     private fun searchNews() {
+
        textNotFound = binding.txtNotFound
         val searchView = binding.searchNews
         val btnBack = binding.imgBtnBack
@@ -173,55 +172,26 @@ class ExploreFragment : Fragment(), ViewHome.View {
             btnBack.isVisible = true
         }
 
-        btnBack.setOnClickListener {
-            btnBack.isVisible = false
-            searchView.onActionViewCollapsed()
-            searchView.setQuery("", false)
-            searchView.clearFocus()
-
-        }
+       btnBackSearch(btnBack, searchView)
 
         val buttonClose: View?  = searchView?.findViewById(androidx.appcompat.R.id.search_close_btn)
-
         buttonCloseSearch(buttonClose, searchView, binding.imgBtnBack, false)
 
 
         searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (!query.isNullOrEmpty()) {
-
                     presenter.search(query!!, textNotFound)
-
                     binding.rvCategory.isVisible = false
-                    binding.titleListNews.text = "Resultado da Pesquisa: $query"
+                    binding.titleListNews.text = getString(R.string.result_search, query)
+
                     onBackPressedCategoryAndSearch()
-
-
 
 
                     buttonCloseSearch(buttonClose, searchView, binding.imgBtnBack, true)
 
-
-                    btnBack.setOnClickListener {
-
-
-                        binding.rvMain.scrollToPosition(0)
-
-                        // Limpa o foco do SearchView para fechá-lo
-                        searchView.clearFocus()
-                        searchView.setQuery("", false)
-
-                        searchView.onActionViewCollapsed()
-
-                        btnBack.isVisible = false
-                        binding.rvCategory.isVisible = true
-
-                        presenter.category("world", textCategory, "Mundo")
-                        textNotFound.isVisible= false
-
-                    }
-
-
+                    btnBackTextSubmitList(btnBack, searchView, binding.txtNotFound)
+                    { presenterCategoryWorld() }
 
                 }
                 return true
@@ -239,14 +209,16 @@ class ExploreFragment : Fragment(), ViewHome.View {
         val callback = object : OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
                 presenter.category("world", textCategory, "Mundo")
-                binding.titleListNews.text = "Útimas Nóticias"
                 binding.rvCategory.isVisible = true
                 textNotFound.isVisible= false
-
             }
 
         }
         requireActivity().onBackPressedDispatcher.addCallback(callback)
     }
 
+    fun presenterCategoryWorld(){
+        presenter.category("world", textCategory, "Mundo")
+        binding.rvCategory.isVisible = true
+    }
 }
