@@ -59,17 +59,16 @@ class ArticleFragment : Fragment(), ViewHome.Favorite {
 
         showWebView()
 
-
         val getStringTitle = arguments?.getString(Constants.TITLE)
 
         onBackPressed(this){
-          if (getStringTitle == "Nóticias"){
-              findNavController().navigate(R.id.action_articleFragment_to_home)
-          }else{
-              findNavController().navigate(R.id.action_articleFragment_to_explore)
+            if (getStringTitle == "Notícias"){
+                findNavController().navigate(R.id.action_articleFragment_to_home)
+            }else{
+                findNavController().navigate(R.id.action_articleFragment_to_explore)
 
-          }
-      }
+            }
+        }
 
 
         initToolbar(binding.toolbar,getStringTitle!!)
@@ -77,6 +76,9 @@ class ArticleFragment : Fragment(), ViewHome.Favorite {
         presenter = FavoritePresenter(this,dataSource)
 
         sharedLinkUrl()
+
+
+
 
     }
 
@@ -97,6 +99,8 @@ class ArticleFragment : Fragment(), ViewHome.Favorite {
         _binding = null
 
     }
+
+
 
     private fun showWebView() {
 
@@ -126,8 +130,12 @@ class ArticleFragment : Fragment(), ViewHome.Favorite {
                     Snackbar.make(it, "Nóticia removida", Snackbar.LENGTH_LONG).show()
                     presenter.deleteArticle(article)
 
+
                 }
+
+
         }
+
     }
 
 
@@ -148,5 +156,7 @@ class ArticleFragment : Fragment(), ViewHome.Favorite {
                 startActivity(chooser)
             }
         }
+
+
     }
 }
