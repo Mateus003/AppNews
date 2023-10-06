@@ -102,7 +102,6 @@ class ExploreFragment : Fragment(), ViewHome.View {
             val categoryBr = item.category.textCategory
             showProgressBar()
             presenter.category(categoryName, textCategory, categoryBr)
-
         }
     }
 
@@ -118,7 +117,6 @@ class ExploreFragment : Fragment(), ViewHome.View {
         categoryList.forEach { category ->
             val categoryAdapter = CategoryAdapter(category)
             adapter.add(categoryAdapter)
-
         }
 
     }
@@ -142,6 +140,7 @@ class ExploreFragment : Fragment(), ViewHome.View {
 
     override fun showArticle(articles: List<Article>) {
         mainAdapter.differ.submitList(articles.toList())
+        binding.txtNotFound.isVisible = articles.isEmpty()
     }
 
 
@@ -169,7 +168,6 @@ class ExploreFragment : Fragment(), ViewHome.View {
 
                   onBackPressed(this@ExploreFragment){configBackPressed()}
 
-
                     buttonCloseSearch(buttonClose, searchView, binding.imgBtnBack, true)
 
                     btnBackTextSubmitList(btnBack, searchView, binding.txtNotFound)
@@ -186,12 +184,12 @@ class ExploreFragment : Fragment(), ViewHome.View {
     }
 
     fun configBackPressed(){
-        presenter.category("world", textCategory, "Mundo")
+        presenter.category("world", textCategory, getString(R.string.world))
         binding.rvCategory.isVisible = true
         textNotFound.isVisible= false
     }
     fun presenterCategoryWorld(){
-        presenter.category("world", textCategory, "Mundo")
+        presenter.category("world", textCategory, getString(R.string.world))
         binding.rvCategory.isVisible = true
     }
 }

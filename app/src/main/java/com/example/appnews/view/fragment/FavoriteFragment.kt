@@ -108,7 +108,7 @@ class FavoriteFragment : Fragment(), ViewHome.Favorite {
         presenter.getAll()
 
 
-        Log.d("TamanhoAdapter", mainAdapter.originalList.toString())
+
     }
 
     override fun onDestroyView() {
@@ -118,7 +118,7 @@ class FavoriteFragment : Fragment(), ViewHome.Favorite {
 
     override fun showArticle(article: List<Article>) {
         mainAdapter.setOriginalListInternal(article)
-
+        binding.txtNotSaveArticle.isVisible = article.isEmpty()
     }
 
     private fun configRecyclerView(){
