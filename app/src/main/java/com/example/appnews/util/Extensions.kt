@@ -23,7 +23,7 @@ fun Fragment.initToolbar(toolbar: Toolbar, titleTxt: String) {
     (activity as AppCompatActivity).title = ""
     (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
     toolbar.setNavigationOnClickListener {
-        if (titleTxt == "Nóticias"){
+        if (titleTxt == "Notícias"){
             findNavController().navigate(R.id.action_articleFragment_to_home)
     }else if(titleTxt == "Explorar"){
             findNavController().navigate(R.id.action_articleFragment_to_explore)
@@ -41,7 +41,7 @@ fun Fragment.initToolbar(toolbar: Toolbar, titleTxt: String) {
             }
             fragment.findNavController().navigate(idPage, bundle)
         } else {
-            Toast.makeText(context, "O link do artigo está indisponível", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, fragment.getString(R.string.urlArticleOff),Toast.LENGTH_LONG).show()
         }
     }
 
@@ -93,26 +93,8 @@ fun onBackPressed(fragment: Fragment, configBackPressed: ()-> Unit){
     val callback = object : OnBackPressedCallback(true){
         override fun handleOnBackPressed() {
             configBackPressed()
-
         }
 
     }
     fragment.requireActivity().onBackPressedDispatcher.addCallback(callback)
 }
-/*
- btnBack.setOnClickListener {
-
-                        // Limpa o foco do SearchView para fechá-lo
-                        searchView.clearFocus()
-                        searchView.setQuery("", false)
-
-                        searchView.onActionViewCollapsed()
-
-                        btnBack.isVisible = false
-                        binding.rvCategory.isVisible = true
-
-                        presenter.category("world", textCategory, "Mundo")
-                        textNotFound.isVisible= false
-
-                    }
- */
