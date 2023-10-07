@@ -2,7 +2,10 @@
 
 O AppNews é um aplicativo Android que oferece aos usuários acesso às últimas notícias de diferentes categorias. Esse aplicativo foi desenvolvido usando Kotlin e segue a arquitetura MVP (Model-View-Presenter), aproveitando tecnologias como Room, Retrofit, Coroutines e Android Jetpack. Ele consome a API da NewsData.io para fornecer notícias atualizadas.
 
-
+<img src="https://github.com/Mateus003/AppNews/assets/102229622/59f45812-715d-4db0-8593-be66a2cea02b" width="245px">
+<img src="https://github.com/Mateus003/AppNews/assets/102229622/bb70813b-6b0d-4e47-b2fd-1691f44e6430" width="245px">
+<img src="https://github.com/Mateus003/AppNews/assets/102229622/3ee41f41-9fc3-496c-92e2-44f95fb2ff72" width="245px">
+<img src="https://github.com/Mateus003/AppNews/assets/102229622/9d092903-9bbe-43b5-8fc1-9f325c1576a0" width="250px">
 
 
 ## Tecnologias Utilizadas
